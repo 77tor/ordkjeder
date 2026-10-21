@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordkjeder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-standard">
+
+<div class="sidebar">
+    <div class="sidebar-header" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <div class="menu-container" style="margin-bottom: 0; margin-right: 15px;">
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+            <div id="myDropdown" class="dropdown-menu">
+                </a>
+                <a href="https://77tor.github.io/bingo/" target="_self">
+                    <img src="ikon/bingo.png" class="menu-icon" alt="Bingo"> Bingo
+                </a>
+                <a href="https://77tor.github.io/finn_ordet/" target="_self">
+                    <img src="ikon/finn_ordet.svg" class="menu-icon" alt="Finn ordet"> Finn ordet
+                </a>
+                <a href="https://77tor.github.io/gitter/" target="_self">
+                    <img src="ikon/gitter.png" class="menu-icon" alt="Gitter-ord"> Gitter-ord
+                </a>
+                <a href="https://77tor.github.io/les_og_skriv/" target="_self">
+                    <img src="ikon/les_skriv.png" class="menu-icon" alt="Les og skriv"> Les og skriv
+                </a>
+                <a href="https://77tor.github.io/ord-sok/" target="_self"> 
+                    <img src="ikon/ord-sok.png" class="menu-icon" alt="Ordsøk"> Ordsøk
+                </a>
+                <a href="https://77tor.github.io/ordkjeder/" class="menu-item-disabled">
+                    <img src="ikon/ordkjeder.png" class="menu-icon" alt="Ordkjeder"> Ordkjeder
+                </a>
+                <a href="https://77tor.github.io/puslehistorier/" target="_self">
+                    <img src="ikon/pusle.png" class="menu-icon" alt="Puslehistorier"> Puslehistorier
+                </a>
+                <a href="https://77tor.github.io/Silhuettord/" target="_self">
+                    <img src="ikon/silhuett-ord.png" class="menu-icon" alt="Silhuett-ord"> Silhuett-ord
+                </a>
+                <a href="https://77tor.github.io/Stavelser/" target="_self">
+                    <img src="ikon/stavelser.png" class="menu-icon" alt="Stavelser"> Stavelser
+                </a>
+                <a href="https://77tor.github.io/synonymer/" target="_self">
+                    <img src="ikon/synonym.png" class="menu-icon" alt="Synonymer"> Synonymer
+                </a>
+            </div>
+        </div>
+        <h2 style="margin: 0; flex-grow: 1; text-align: center;">ORDKJEDER</h2>
+    </div>
+
+    <!-- ORDLISTE -->
+    <div class="control-item">
+        <span>Ordliste:</span>
+        <select id="select-ordliste" onchange="genererOppgaver()">
+            <option value="ordkjedetest" selected>Ordkjedetesten</option>            
+            <option value="25">25 vanligste ord</option>
+            <option value="100">100 vanligste ord</option>
+            <option value="222">222 vanligste ord</option>
+            <option value="444">444 vanligste ord</option>
+            <option value="alleord">Velge blant 1140 ord</option>
+        </select>
+    </div>
+
+    <!-- ORDLENGDE -->
+    <div class="control-item">
+        <span>Ordlengde:</span>
+        <select id="select-ordlengde" onchange="genererOppgaver()">
+            <option value="alle" selected>Alle ord</option>
+            <option value="1-3">1–3 bokstaver</option>
+            <option value="1-4">1–4 bokstaver</option>
+            <option value="1-5">1–5 bokstaver</option>
+            <option value="1-6">1–6 bokstaver</option>
+        </select>
+    </div>
+
+    <!-- ANTALL ORDKJEDER -->
+    <div class="control-item">
+        <span>Antall ordkjeder:</span>
+        <input type="number" id="antall-oppgaver" value="30" min="1" max="120" onchange="genererOppgaver()">
+    </div>
+
+    <!-- NUMMERERING -->
+    <div class="control-item">
+        <span>Nummerering:</span>
+        <select id="nummerering-valg" onchange="tegnOppgaver()">
+            <option value="rad" selected>Kun på radslutt</option>
+            <option value="alle">Ved hver oppgave</option>
+            <option value="ingen">Ingen nummer</option>
+        </select>
+    </div>
+
+    <!-- TEMA -->
+    <div class="control-item">
+        <span>Velg tema:</span>
+        <select id="themeSelect" onchange="changeTheme(this.value)">
+            <option value="standard">Standard</option>
+            <option value="dinosaur">Dinosaurer</option>
+            <option value="eurovisjon">Eurovisjon</option>
+            <option value="fest">Fest</option>
+            <option value="halloween">Halloween</option>
+            <option value="host">Høst</option>
+            <option value="jul">Jul</option>
+            <option value="kryp">Småkryp</option>
+            <option value="naturfag">Naturfag</option>
+            <option value="racerbil">Racerbil</option>
+            <option value="sjorover">Sjørøver</option>
+            <option value="sommer">Sommer</option>
+            <option value="sommerfugl">Sommerfugl</option>
+            <option value="sport">Sport</option>
+            <option value="verdensrommet">Verdensrommet</option>
+            <option value="vinter">Vinter</option>
+        </select>
+    </div>
+
+    <!-- SAMMENSLÅTT: ORD PR KJEDE & KOLONNER -->
+<div class="control-item">
+        <div style="display: flex; align-items: center; gap: 4px; flex: 1.2;">
+            <span style="font-size: 0.8rem;">Ord/kjede:</span>
+            <input type="number" id="ord-per-kjede" value="4" min="2" max="5" style="width: 40px; padding: 3px;" onchange="genererOppgaver()">
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px; justify-content: flex-end; flex: 1;">
+            <span style="font-size: 0.8rem;">Kolonner:</span>
+            <select id="antall-kolonner" style="width: 65px; padding: 3px;" onchange="oppdaterVisning()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <!-- SAMMENSLÅTT: FONT & SKRIFTSTØRRELSE -->
+<div class="control-item">
+        <div style="display: flex; align-items: center; gap: 4px; flex: 1.2;">
+            <span style="font-size: 0.8rem;">Font:</span>
+            <select id="font-family" style="width: 90px; padding: 3px;" onchange="oppdaterVisning();">
+                <option value="'Segoe UI', Arial, sans-serif" selected>Standard</option>
+                <option value="'Trykkskrift', sans-serif">Trykkskrift</option>
+                <option value="'Stavskrift', cursive">Stavskrift</option>
+                <option value="Calibri, 'Segoe UI', sans-serif">Calibri</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px; justify-content: flex-end; flex: 0.9;">
+            <span style="font-size: 0.8rem;">Str:</span>
+            <select id="font-size-select" style="width: 70px; padding: 3px;" onchange="oppdaterVisning();">
+                <option value="0.9rem">Liten</option>
+                <option value="1.05rem" selected>Medium</option>
+                <option value="1.25rem">Stor</option>
+                <option value="1.45rem">E.stor</option>
+            </select>
+        </div>
+    </div>
+
+
+    <!-- UNNGÅ DUPLIKATE ORD -->
+    <div class="control-item">
+        <span>Kun unike ord</span>
+        <label class="switch">
+            <input type="checkbox" id="toggle-unike" onchange="genererOppgaver()">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <!-- VIS FASIT -->
+    <div class="control-item">
+        <span>Vis fasit</span>
+        <label class="switch">
+            <input type="checkbox" id="toggle-fasit" onchange="tegnOppgaver()">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <!-- KNAPPER -->
+<div class="knappe-rad" style="display: flex; gap: 8px; margin-bottom: 6px;">
+    <button class="action-btn" style="flex: 2; background-color: var(--accent-green); padding: 10px 4px; font-size: 0.85rem; margin-bottom: 0;" onclick="genererOppgaver()">Nye oppgaver</button>
+    <button class="action-btn" style="flex: 1; background-color: #2980b9; padding: 10px 4px; font-size: 0.85rem; margin-bottom: 0;" onclick="window.print()">Skriv ut</button>
+</div>
+
+<!-- Rad 2: Velg ord selv + Nullstill -->
+<div class="knappe-rad" style="display: flex; gap: 8px; margin-bottom: 0;">
+    <button class="action-btn btn-lilla" style="flex: 2; background-color: #8e44ad; padding: 10px 4px; font-size: 0.85rem; margin-bottom: 0;" onclick="apneVelgSelvModal()">Velg ord selv</button>
+    <button class="action-btn" style="flex: 1; background-color: #e74c3c; padding: 10px 4px; font-size: 0.85rem; margin-bottom: 0;" onclick="nullstillValg()">Nullstill</button>
+</div>
+</div>
+
+<div class="main-content">
+    <!-- START-SKJERM -->
+    <div id="placeholder-image" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+        <img src="ikon/ordkjeder.png" alt="Velkomstbilde" style="max-width: 400px; opacity: 0.3; filter: grayscale(100%);">
+    </div>
+
+<!-- DYNAMISK SIDESEKSJON -->
+<div id="oppgave-ark-wrapper"></div>
+</div>
+
+<!-- MODAL FOR Å VELGE ORD SELV -->
+<div id="velg-selv-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-innhold">
+        <div class="modal-header">
+            <h2>Velg ord til kjedene selv</h2>
+            <span class="modal-lukk" onclick="lukkVelgSelvModal()">&times;</span>
+        </div>
+
+        <!-- Søkefelt -->
+        <div class="modal-sok-container">
+            <input type="text" id="modal-sok-input" placeholder="Søk etter ord i valgt liste..." oninput="filtrerModalListe()">
+        </div>
+
+        <div class="modal-status-linje">
+            <span>Valgt: <strong id="antall-valgte-teller">0</strong> ord</span>
+            <button class="btn-liten" onclick="nullstillValgteIModal()">Tøm valg</button>
+        </div>
+
+        <!-- Liste over ord -->
+        <div id="modal-oppgave-liste" class="modal-liste"></div>
+
+        <div class="modal-footer">
+            <button class="action-btn" style="background-color: #7f8c8d;" onclick="lukkVelgSelvModal()">Avbryt</button>
+            <button class="action-btn" style="background-color: var(--accent-green);" onclick="brukEgendefinerteOrd()">Generer fra valgte ord</button>
+        </div>
+    </div>
+</div>
+
+<script src="ord/25ord.js"></script>
+<script src="ord/100ord.js"></script>
+<script src="ord/222ord.js"></script>
+<script src="ord/444ord.js"></script>
+<script src="ord/alleord.js"></script>
+<script src="ord/ordkjedetest.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

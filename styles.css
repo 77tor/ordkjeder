@@ -1,0 +1,116 @@
+/* FONTER OG GLOBALE VARIABLER */
+@font-face { font-family: 'Stavskrift'; src: url('skrift/stavskrift.otf') format('opentype'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Trykkskrift'; src: url('skrift/trykkskrift.otf') format('opentype'); font-weight: normal; font-style: normal; }
+@import url('https://fonts.googleapis.com/css2?family=Andika&display=swap');
+:root { --sidebar-bg: #243447; --accent-green: #27ae60; --sidebar-text: #ffffff; --main-bg: #d1d8e0; --theme-accent: #2b6cb0; }
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; height: 100vh; background-color: var(--main-bg); overflow: hidden; }
+
+/* SIDEMENY & KONTROLLER */
+.sidebar { width: 350px; min-width: 350px; background-color: var(--sidebar-bg); color: var(--sidebar-text); padding: 15px 15px 20px 15px; display: flex; flex-direction: column; box-shadow: 4px 0 15px rgba(0,0,0,0.3); z-index: 10; overflow-y: auto; }
+.sidebar h2 { margin: 0; flex-grow: 1; text-align: center; font-size: 1.1rem; text-transform: uppercase; }
+.control-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 6px 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.85rem; }
+.switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+.slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--accent-green); }
+input:checked + .slider:before { transform: translateX(20px); }
+select, input[type="number"], input[type="text"] { background: #ecf0f1; border: none; border-radius: 4px; padding: 4px; width: 140px; font-family: inherit; font-size: 0.85rem; color: #333; }
+select:focus, input:focus { outline: none; }
+.action-btn { width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; color: white; transition: 0.2s; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; }
+.action-btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+.knappe-rad { display: flex; gap: 6px; margin-top: 2px; width: 100%; }
+.knapperad-full { width: 100%; margin-top: 8px; }
+.action-btn.btn-lilla { background-color: #8e44ad; color: white; width: 100%; box-shadow: none; border: none; }
+.action-btn.btn-lilla:hover { background-color: #732d91; }
+
+/* HAMBURGERMENY */
+.menu-container { position: relative; margin-bottom: 0; margin-right: 15px; }
+.hamburger { display: flex; flex-direction: column; gap: 4px; cursor: pointer; width: 20px; padding: 0; margin-left: 5px; } /* <-- Legg til margin-left her */
+.hamburger span { display: block; width: 100%; height: 2px; background-color: white; border-radius: 1px; transition: 0.3s; }
+.dropdown-menu { display: none; position: absolute; top: 25px; left: 0; background-color: #2c3e50; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; width: 200px; z-index: 100; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
+.dropdown-menu.show { display: block !important; }
+.dropdown-menu a { display: block; color: white; padding: 12px 15px; text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.dropdown-menu a:hover { background-color: #34495e; }
+.menu-icon { width: 20px; height: 20px; margin-right: 10px; vertical-align: middle; object-fit: contain; }
+.menu-item-disabled { opacity: 0.4; filter: grayscale(100%); pointer-events: none; }
+
+/* HOVEDINNHOLD & FLER-SIDERS A4 LAYOUT */
+.main-content { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 20px; transition: background-color 0.3s ease; }
+#oppgave-ark-wrapper { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.a4-side { background: white; width: 210mm; height: 297mm; min-height: 297mm; padding: 8mm 10mm 16mm 10mm; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; border: 4px solid var(--theme-accent); border-radius: 4px; box-sizing: border-box; page-break-after: always; }
+
+/* EKSAKT MIDTSTILLING AV OVERSKRIFT & HEADER */
+.ark-header { display: flex; align-items: center; justify-content: space-between; margin-top: 0; margin-bottom: 15px; flex-shrink: 0; position: relative; min-height: 65px; }
+.ark-tittel { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; width: 100%; max-width: calc(100% - 200px); pointer-events: none; }
+.ark-tittel h1 { margin-top: 0; margin-bottom: 6px; font-size: 1.8rem; color: var(--theme-accent); transition: color 0.3s ease; text-align: center; }
+.ark-tittel h1.sekundaer-tittel { font-size: 1.3rem; color: var(--theme-accent); opacity: 0.75; font-weight: 600; margin-bottom: 0; text-align: center; }
+.navn-linje { font-size: 0.95rem; color: #333; margin-top: 6px; text-align: center; }
+.corner-img { width: 95px; height: 95px; object-fit: contain; display: block; margin-top: -5mm; z-index: 2; }
+/* Trekker bildene ut mot venstre og høyre ramme */
+.ark-header img:first-child { margin-left: -6mm; }
+.ark-header img:last-child { margin-right: -6mm; }
+.ark-footer { position: absolute; bottom: 0; left: 0; right: 0; display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 10px 10mm; background-color: #f2f4f7; border-top: 1px dashed #bbb; font-size: 0.8rem; color: #444; font-weight: 600; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
+.fasit-skille { color: #e74c3c; font-weight: bold; margin: 0 1px; user-select: none; }
+
+/* ORDKJEDE GRID LAYOUT (10 RADER PER SIDE) */
+.side-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(10, 1fr); align-content: space-between; row-gap: 12px; column-gap: 8px; flex-grow: 1; margin-top: 10px; margin-bottom: 15px; }
+.ordkjede-item { font-size: 1.05rem; line-height: 1.4; white-space: nowrap; word-break: keep-all; color: #111; display: flex; align-items: center; padding: 2px 0; overflow: visible; }
+.ordkjede-nr { font-weight: bold; margin-right: 3px; color: var(--theme-accent); }
+.rad-nr { font-weight: bold; color: var(--theme-accent); }
+.fasit-seksjon { margin-top: 10px; padding-top: 10px; border-top: 2px dashed var(--theme-accent); font-size: 0.85rem; color: #444; flex-shrink: 0; }
+.fasit-tittel { font-weight: bold; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.fasit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 15px; }
+
+/* MODAL POPUP (VELG ORD SELV) */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-innhold { background: white; width: 90%; max-width: 650px; max-height: 85vh; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.3); color: #2c3e50; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
+.modal-header h2 { margin: 0; font-size: 1.2rem; }
+.modal-lukk { font-size: 1.8rem; cursor: pointer; font-weight: bold; color: #7f8c8d; }
+.modal-lukk:hover { color: #e74c3c; }
+.modal-sok-container { margin-bottom: 5px; margin-top: 10px; }
+.modal-sok-container input[type="text"] { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; }
+.modal-sok-container input[type="text"]:focus { border-color: var(--theme-accent, #2b6cb0); outline: none; }
+.modal-status-linje { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; margin-bottom: 10px; margin-top: 10px; }
+.btn-liten { background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+.modal-liste { flex-grow: 1; overflow-y: auto; border: 1px solid #ddd; border-radius: 6px; padding: 10px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 350px; }
+.modal-footer { display: flex; gap: 10px; margin-top: 15px; padding-top: 10px; border-top: 2px solid #ecf0f1; }
+
+/* TEMASTILER */
+body.theme-standard { --theme-accent: #2b6cb0; } body.theme-standard .main-content { background-color: #d1d8e0; }
+body.theme-dinosaur { --theme-accent: #27ae60; } body.theme-dinosaur .main-content { background-color: #d4efdf; }
+body.theme-eurovisjon { --theme-accent: #8e44ad; } body.theme-eurovisjon .main-content { background-color: #f4ecf7; }
+body.theme-fest { --theme-accent: #e84393; } body.theme-fest .main-content { background-color: #fd79a8; }
+body.theme-halloween { --theme-accent: #e67e22; } body.theme-halloween .main-content { background-color: #34495e; }
+body.theme-host { --theme-accent: #d35400; } body.theme-host .main-content { background-color: #fabea6; }
+body.theme-jul { --theme-accent: #c0392b; } body.theme-jul .main-content { background-color: #fadbd8; }
+body.theme-kryp { --theme-accent: #16a085; } body.theme-kryp .main-content { background-color: #a3e4d7; }
+body.theme-naturfag { --theme-accent: #2980b9; } body.theme-naturfag .main-content { background-color: #d4e6f1; }
+body.theme-racerbil { --theme-accent: #c0392b; } body.theme-racerbil .main-content { background-color: #f5b7b1; }
+body.theme-sjorover { --theme-accent: #34495e; } body.theme-sjorover .main-content { background-color: #d5dbdb; }
+body.theme-sommer { --theme-accent: #f1c40f; } body.theme-sommer .main-content { background-color: #fef9e7; }
+body.theme-sommerfugl { --theme-accent: #e84393; } body.theme-sommerfugl .main-content { background-color: #f9ebea; }
+body.theme-sport { --theme-accent: #2980b9; } body.theme-sport .main-content { background-color: #aed6f1; }
+body.theme-verdensrommet { --theme-accent: #8e44ad; } body.theme-verdensrommet .main-content { background-color: #ebdef0; }
+body.theme-vinter { --theme-accent: #3498db; } body.theme-vinter .main-content { background-color: #d6eaf8; }
+
+/* PRINT STYLING - A4 UTSKRIFT MED 5MM JEVN PAPIRMARG */
+@media print {
+  @page { size: A4 portrait; margin: 5mm; }
+  html, body { width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; background: white !important; overflow: visible !important; }
+  .sidebar, .modal-overlay, #placeholder-image { display: none !important; }
+  .main-content { padding: 0 !important; margin: 0 !important; width: 100% !important; height: auto !important; overflow: visible !important; background: white !important; display: block !important; }
+  #oppgave-ark-wrapper { gap: 0 !important; width: 100% !important; }
+  .a4-side { box-shadow: none !important; width: 200mm !important; height: 287mm !important; min-height: 287mm !important; max-height: 287mm !important; padding: 8mm 10mm 14mm 10mm !important; border: 4px solid var(--theme-accent) !important; border-radius: 4px !important; box-sizing: border-box !important; page-break-after: always !important; page-break-inside: avoid !important; margin: 0 auto !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .ark-header { position: relative !important; min-height: 65px !important; }
+  .ark-tittel { position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; text-align: center !important; width: 100% !important; }
+  .ark-tittel h1, .navn-linje { text-align: center !important; }
+  .side-grid { display: grid !important; grid-template-rows: repeat(10, 1fr) !important; row-gap: 10px !important; column-gap: 8px !important; flex-grow: 1 !important; }
+.ark-footer { position: absolute !important; bottom: 0 !important; left: 0 !important; right: 0 !important; padding: 10px 10mm !important; background-color: #f2f4f7 !important; border-top: 1px dashed #bbb !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .skjul-i-utskrift { display: none !important; }
+  .corner-img { width: 95px !important; height: 95px !important; margin-top: -5mm !important; }
+  .ark-header img:first-child { margin-left: -6mm !important; }
+  .ark-header img:last-child { margin-right: -6mm !important; }
+}
