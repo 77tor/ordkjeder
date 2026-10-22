@@ -166,23 +166,23 @@
         </label>
     </div>
 
-<!-- VIS BUNNTEKST -->
+<!-- SAMMENSLÅTT: VIS BUNNTEKST & VIS FASIT -->
     <div class="control-item">
-        <span>Vis bunntekst</span>
-        <label class="switch">
-            <input type="checkbox" id="toggle-bunntekst" checked onchange="oppdaterVisning()">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <!-- VIS FASIT -->
-    <div class="control-item">
-        <span>Vis fasit</span>
-        <label class="switch">
-            <input type="checkbox" id="toggle-fasit" onchange="tegnOppgaver()">
-            <span class="slider"></span>
-        </label>
-    </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; flex: 1; padding-right: 6px; border-right: 1px solid rgba(255,255,255,0.15);">
+            <span style="font-size: 0.8rem;">Bunntekst:</span>
+            <label class="switch">
+                <input type="checkbox" id="toggle-bunntekst" checked onchange="oppdaterVisning()">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; flex: 1; padding-left: 10px;">
+            <span style="font-size: 0.8rem;">Fasit:</span>
+            <label class="switch">
+                <input type="checkbox" id="toggle-fasit" onchange="tegnOppgaver()">
+                <span class="slider"></span>
+            </label>
+        </div>
+</div>
 
     <!-- KNAPPER -->
 <div class="knappe-rad" style="display: flex; gap: 8px; margin-bottom: 6px;">
