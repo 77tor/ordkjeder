@@ -1,6 +1,7 @@
 // Bilde-kartlegging for temaer med 2 toppbilder
 const temaBilder = {
     standard: ["", ""],
+    utentema: ["", ""],
     dinosaur: ["Bilder/dinosaur_01.png", "Bilder/dinosaur_02.png"],
     eurovisjon: ["Bilder/eurovisjon_01.png", "Bilder/eurovisjon_02.png"],
     fest: ["Bilder/fest_01.png", "Bilder/fest_02.png"],
