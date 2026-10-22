@@ -107,6 +107,14 @@ function oppdaterVisning() {
     items.forEach(item => {
         item.style.fontSize = fontSize;
     });
+
+    // OPPDAER BUNNTEKST (VIS/SKJUL I SANNTID)
+    const bunntekstEl = document.getElementById("toggle-bunntekst");
+    const visBunntekst = bunntekstEl ? bunntekstEl.checked : true;
+
+    document.querySelectorAll(".ark-footer").forEach(footer => {
+        footer.style.setProperty("display", visBunntekst ? "flex" : "none", "important");
+    });
 }
 
 function genererOppgaver() {
@@ -195,6 +203,10 @@ function tegnOppgaver() {
     const nummerModus = document.getElementById("nummerering-valg") ? document.getElementById("nummerering-valg").value : "alle";
     const antallKolonner = parseInt(document.getElementById("antall-kolonner").value, 10) || 3;
     const visFasit = document.getElementById("toggle-fasit") ? document.getElementById("toggle-fasit").checked : false;
+    
+    // SJEKKER OM BUNNTEKST SKAL VISES (Standard = true)
+    const visBunntekst = document.getElementById("toggle-bunntekst") ? document.getElementById("toggle-bunntekst").checked : true;
+    
     const fontSelect = document.getElementById("font-family");
     const selectedFont = fontSelect ? fontSelect.value : "'Segoe UI', Arial, sans-serif";
 
@@ -229,9 +241,8 @@ function tegnOppgaver() {
         const displayStyle1 = bilde1Src ? "block" : "none";
         const displayStyle2 = bilde2Src ? "block" : "none";
 
-
-const customTitleEl = document.getElementById("custom-title");
-const tittelTekst = (customTitleEl && customTitleEl.value) ? customTitleEl.value : "Ordkjeder";
+        const customTitleEl = document.getElementById("custom-title");
+        const tittelTekst = (customTitleEl && customTitleEl.value) ? customTitleEl.value : "Ordkjeder";
 
         let overskriftHtml = "";
         let navnLinjeHtml = "";
@@ -304,8 +315,11 @@ const tittelTekst = (customTitleEl && customTitleEl.value) ? customTitleEl.value
 
         const tidTekst = sideNummer === 1 ? `Tid: ${beregnTidForKjeder(totaltAntall)}` : `Side ${sideNummer} av ${totaltSider}`;
 
+        // PAAPFOERER DISPLAY BASERT PAA BRYTEREN
+        const footerDisplayStyle = visBunntekst ? "flex" : "none";
+
         const footerHtml = `
-            <div class="ark-footer">
+            <div class="ark-footer" style="display: ${footerDisplayStyle} !important;">
                 <span>Ordkjeder - Norsk gjenkjenning</span>
                 <span style="font-weight: bold; color: #2c3e50;">${tidTekst}</span>
                 <span>${sumTekst}</span>
@@ -315,7 +329,8 @@ const tittelTekst = (customTitleEl && customTitleEl.value) ? customTitleEl.value
         sideDiv.innerHTML = headerHtml + gridHtml + footerHtml;
         wrapper.appendChild(sideDiv);
     }
-// Påfør valgt skriftstørrelse og font på de nylig tegnede oppgavene
+
+    // Påfør valgt skriftstørrelse og font på de nylig tegnede oppgavene
     const fontSizeSelect = document.getElementById("font-size-select");
     const fontSize = fontSizeSelect ? fontSizeSelect.value : "1.05rem";
     
@@ -377,6 +392,10 @@ function nullstillValg() {
 
     const unikeEl = document.getElementById("toggle-unike");
     if (unikeEl) unikeEl.checked = false;
+
+    // TILBAKESTILL BUNNTEKST-BRYTEREN TIL STANDARD (PÅ)
+    const bunntekstEl = document.getElementById("toggle-bunntekst");
+    if (bunntekstEl) bunntekstEl.checked = true;
 
     // Tøm valgte ord og kjeder
     egedefinerteOrdValg = [];
